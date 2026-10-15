@@ -27,6 +27,7 @@ bash scripts/setup-android.sh
 haxelib run lime config ANDROID_SDK "$ANDROID_HOME"
 haxelib run lime config ANDROID_NDK_ROOT "$ANDROID_HOME/ndk/21.4.7075529"
 haxelib run lime config JAVA_HOME "$JAVA_HOME"
+haxelib run lime config ANDROID_SETUP true
 haxelib run lime build android -debug -D HXCPP_CHECK_POINTER
 ```
 
