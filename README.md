@@ -1,5 +1,9 @@
 # HEX MOD
 
+## Android
+
+[Build do APK, controles e limitações do port](docs/android.md).
+
 ## SHIT
 ### I GET A CRASH RELATING TO CAMERAS???
 

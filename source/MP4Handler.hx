@@ -7,11 +7,101 @@ import flixel.FlxState;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.events.Event;
+#if !android
 import vlc.VlcBitmap;
+#end
 
 // THIS IS FOR TESTING
 // DONT STEAL MY CODE >:(
 // I stole it
+
+#if android
+/** The bundled VLC binaries are desktop-only. Keep story progression on Android. */
+class MP4Handler
+{
+	public var finishCallback:Void->Void;
+	public var stateCallback:FlxState;
+	public var bitmap:AndroidVideoPlaceholder = new AndroidVideoPlaceholder();
+	public var sprite:FlxSprite;
+
+	var completion:FlxTimer;
+	var killed:Bool = false;
+
+	public function new()
+	{
+	}
+
+	public function playMP4(path:String, ?repeat:Bool = false, ?outputTo:FlxSprite = null, ?isWindow:Bool = false, ?isFullscreen:Bool = false,
+			?midSong:Bool = false):Void
+	{
+		sprite = outputTo;
+		if (sprite != null)
+			sprite.loadGraphic(bitmap.bitmapData);
+		// Background video must not stop the song or invoke a scene transition.
+		if (!midSong)
+		{
+			// StoryScene installs finishCallback AFTER playMP4 returns.
+			completion = new FlxTimer().start(0.01, function(_)
+			{
+				if (!killed)
+					onVLCComplete();
+			});
+		}
+	}
+
+	public function onVLCComplete():Void
+	{
+		if (finishCallback != null)
+			finishCallback();
+		else if (stateCallback != null)
+			LoadingState.loadAndSwitchState(stateCallback);
+	}
+
+	public function kill():Void
+	{
+		killed = true;
+		if (completion != null)
+			completion.cancel();
+		bitmap.dispose();
+	}
+}
+
+/** Retains the small playback API used by Cooling, pause and results screens. */
+class AndroidVideoPlaceholder
+{
+	public var bitmapData:openfl.display.BitmapData = new openfl.display.BitmapData(1, 1, true, 0);
+	public var isPlaying:Bool = false;
+
+	public function new()
+	{
+	}
+
+	public function seek(position:Float):Void
+	{
+	}
+
+	public function resume():Void
+	{
+		isPlaying = true;
+	}
+
+	public function pause():Void
+	{
+		isPlaying = false;
+	}
+
+	public function stop():Void
+	{
+		isPlaying = false;
+	}
+
+	public function dispose():Void
+	{
+		stop();
+		bitmapData.dispose();
+	}
+}
+#else
 class MP4Handler
 {
 	public var finishCallback:Void->Void;
@@ -193,3 +283,4 @@ class MP4Handler
 			bitmap.volume = 0;
 	}
 }
+#end

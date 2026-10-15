@@ -1,6 +1,9 @@
 import flixel.math.FlxRect;
 import flixel.text.FlxText;
+import openfl.utils.Assets;
+#if FEATURE_FILESYSTEM
 import sys.FileSystem;
+#end
 import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
@@ -11,7 +14,9 @@ import flixel.tweens.FlxTween;
 import sys.thread.Mutex;
 import flixel.FlxG;
 import flixel.system.FlxSound;
+#if FEATURE_FILESYSTEM
 import sys.io.File;
+#end
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
@@ -125,9 +130,9 @@ class BruhADiagWindow extends MusicBeatState
 			rightCharacter.alpha = 0;
 			rightCharacter.antialiasing = true;
 			// offset cuz yay!
-			if (FileSystem.exists("assets/hex/images/dialogue_sprites/bf/" + expression + "_offset.txt"))
+			if (Assets.exists(Paths.file("images/dialogue_sprites/bf/" + expression + "_offset.txt", "hex")))
 			{
-				var offsets = File.getContent("assets/hex/images/dialogue_sprites/bf/" + expression + "_offset.txt")
+				var offsets = Assets.getText(Paths.file("images/dialogue_sprites/bf/" + expression + "_offset.txt", "hex"))
 					.replace("\n", "")
 					.replace("\r", "")
 					.replace("\t", "")
@@ -207,9 +212,9 @@ class BruhADiagWindow extends MusicBeatState
 			}
 			leftCharacter.antialiasing = true;
 			// offset cuz yay!
-			if (FileSystem.exists("assets/hex/images/dialogue_sprites/" + char.toLowerCase() + "/" + expression + "_offset.txt"))
+			if (Assets.exists(Paths.file("images/dialogue_sprites/" + char.toLowerCase() + "/" + expression + "_offset.txt", "hex")))
 			{
-				var offsets = File.getContent("assets/hex/images/dialogue_sprites/" + char.toLowerCase() + "/" + expression + "_offset.txt")
+				var offsets = Assets.getText(Paths.file("images/dialogue_sprites/" + char.toLowerCase() + "/" + expression + "_offset.txt", "hex"))
 					.replace("\n", "")
 					.replace("\r", "")
 					.replace("\t", "")
@@ -629,9 +634,9 @@ class BruhADiagWindow extends MusicBeatState
 	public override function create()
 	{
 		if (song == "detectedEnd")
-			lines = File.getContent('assets/data/songs/detected/endDialogue.txt').split('\n');
+			lines = Assets.getText(Paths.txt('data/songs/detected/endDialogue')).split('\n');
 		else
-			lines = File.getContent('assets/data/songs/${song}/dialogue.txt').split('\n');
+			lines = Assets.getText(Paths.txt('data/songs/${song}/dialogue')).split('\n');
 		while (section != 1)
 		{
 			parseLine(lines[lineIndex]);
@@ -776,6 +781,7 @@ class BruhADiagWindow extends MusicBeatState
 			FlxTween.tween(escapeText, {alpha: 0, y: 740}, 2, {ease: FlxEase.elasticIn});
 		}
 
+		#if FEATURE_FILESYSTEM
 		if (FlxG.keys.justPressed.F1)
 		{
 			debug.visible = !debug.visible;
@@ -863,6 +869,7 @@ class BruhADiagWindow extends MusicBeatState
 						+ leftCharacter.angle);
 			}
 		}
+		#end
 
 		if (waitingOnUpdate)
 		{

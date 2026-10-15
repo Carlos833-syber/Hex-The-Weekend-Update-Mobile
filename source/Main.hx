@@ -104,6 +104,10 @@ class Main extends Sprite
 		game = new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen);
 		addChild(game);
 
+		#if android
+		addChild(new MobileControls());
+		#end
+
 		#if !mobile
 		addChild(fpsCounter);
 		toggleFPS(FlxG.save.data.fps);
@@ -162,7 +166,8 @@ class Main extends Sprite
 
 	public function changeFPSColor(color:FlxColor)
 	{
-		fpsCounter.textColor = color;
+		if (fpsCounter != null)
+			fpsCounter.textColor = color;
 	}
 
 	public function setFPSCap(cap:Float)
@@ -177,6 +182,6 @@ class Main extends Sprite
 
 	public function getFPS():Float
 	{
-		return fpsCounter.currentFPS;
+		return fpsCounter != null ? fpsCounter.currentFPS : FlxG.drawFramerate;
 	}
 }

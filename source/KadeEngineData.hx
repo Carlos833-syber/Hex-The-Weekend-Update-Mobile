@@ -131,6 +131,9 @@ class KadeEngineData
 
 		FlxG.save.data.cacheImages = false;
 
+		if (FlxG.save.data.hitboxVisible == null)
+			FlxG.save.data.hitboxVisible = true;
+
 		if (FlxG.save.data.middleScroll == null)
 			FlxG.save.data.middleScroll = false;
 

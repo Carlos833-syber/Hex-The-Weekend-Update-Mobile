@@ -281,7 +281,9 @@ class PlayState extends MusicBeatState
 	public static var theFunne:Bool = true;
 
 	var funneEffect:FlxSprite;
-	var inCutscene:Bool = false;
+
+	public var inCutscene:Bool = false;
+
 	var usedTimeTravel:Bool = false;
 
 	public static var stageTesting:Bool = false;
@@ -350,8 +352,10 @@ class PlayState extends MusicBeatState
 		{
 			remove(i);
 		}
+		#if FEATURE_LUAMODCHART
 		if (luaModchart != null)
 			luaModchart.die();
+		#end
 		songScoreDef = 0;
 		songScore = 0;
 		unspawnNotes = [];
@@ -1204,8 +1208,7 @@ class PlayState extends MusicBeatState
 			add(judgementCounter);
 		}
 
-		replayTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (PlayStateChangeables.useDownscroll ? 100 : -100), 0, "REPLAY",
-			20);
+		replayTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (PlayStateChangeables.useDownscroll ? 100 : -100), 0, "REPLAY", 20);
 		replayTxt.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		replayTxt.borderSize = 4;
 		replayTxt.borderQuality = 2;
@@ -2796,7 +2799,9 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
+				#if FEATURE_LUAMODCHART
 				luaModchart = null;
+				#end
 			}
 			#end
 		}
@@ -2819,7 +2824,9 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
+				#if FEATURE_LUAMODCHART
 				luaModchart = null;
+				#end
 			}
 			#end
 		}
@@ -2867,7 +2874,9 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
+				#if FEATURE_LUAMODCHART
 				luaModchart = null;
+				#end
 			}
 			#end
 		}
@@ -2913,7 +2922,9 @@ class PlayState extends MusicBeatState
 				if (luaModchart != null)
 				{
 					luaModchart.die();
+					#if FEATURE_LUAMODCHART
 					luaModchart = null;
+					#end
 				}
 				#end
 			}
@@ -2928,7 +2939,9 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
+				#if FEATURE_LUAMODCHART
 				luaModchart = null;
+				#end
 			}
 			#end
 		}
@@ -3874,7 +3887,9 @@ class PlayState extends MusicBeatState
 		if (luaModchart != null)
 		{
 			luaModchart.die();
+			#if FEATURE_LUAMODCHART
 			luaModchart = null;
+			#end
 		}
 		#end
 
@@ -3994,7 +4009,9 @@ class PlayState extends MusicBeatState
 					if (luaModchart != null)
 					{
 						luaModchart.die();
+						#if FEATURE_LUAMODCHART
 						luaModchart = null;
+						#end
 					}
 					#end
 

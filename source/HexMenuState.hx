@@ -46,7 +46,11 @@ class HexMenuData
 		{
 			path = dataPath;
 			Debug.logTrace("loading " + path);
+			#if android
+			var jsonShit = openfl.utils.Assets.getText(dataPath);
+			#else
 			var jsonShit = sys.io.File.getContent(FileSystem.absolutePath(dataPath));
+			#end
 			var jsonData = Json.parse(jsonShit);
 			data = cast jsonData;
 		}
@@ -115,7 +119,11 @@ class HexMenuState extends MusicBeatState
 
 	public static function loadHexMenu(name):HexMenuData
 	{
+		#if android
+		return new HexMenuData(Paths.json(name, "hexMenu"));
+		#else
 		return new HexMenuData(Paths.json(name, "hexMenu").replace("hexMenu:", ""));
+		#end
 	}
 
 	var tempArray:Array<HexMenuItem> = [];
@@ -140,12 +148,14 @@ class HexMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		#if FEATURE_FILESYSTEM
 		if (FlxG.keys.justPressed.F1)
 		{
 			var creator = new HexMenuCreator();
 			creator.loadS(_path);
 			switchState(creator);
 		}
+		#end
 		super.update(elapsed);
 	}
 

@@ -1589,6 +1589,38 @@ class JudgementCounter extends Option
 	}
 }
 
+class HitboxVisibleOption extends Option
+{
+	public function new()
+	{
+		super();
+		description = "Show or hide the four touch lanes. Hidden lanes still respond to touch.";
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.hitboxVisible = !FlxG.save.data.hitboxVisible;
+		FlxG.save.flush();
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function left():Bool
+	{
+		return press();
+	}
+
+	public override function right():Bool
+	{
+		return press();
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Hitboxes: < " + (FlxG.save.data.hitboxVisible ? "Visible" : "Invisible") + " >";
+	}
+}
+
 class MiddleScrollOption extends Option
 {
 	public function new(desc:String)
@@ -1929,6 +1961,8 @@ class ResetSettings extends Option
 		FlxG.save.data.cacheImages = null;
 		FlxG.save.data.editor = null;
 		FlxG.save.data.laneTransparency = 0;
+		FlxG.save.data.hitboxVisible = null;
+		FlxG.save.data.middleScroll = null;
 
 		KadeEngineData.initSave();
 		confirm = false;
