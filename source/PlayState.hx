@@ -2799,9 +2799,7 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
-				#if FEATURE_LUAMODCHART
 				luaModchart = null;
-				#end
 			}
 			#end
 		}
@@ -2824,9 +2822,7 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
-				#if FEATURE_LUAMODCHART
 				luaModchart = null;
-				#end
 			}
 			#end
 		}
@@ -2874,9 +2870,7 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
-				#if FEATURE_LUAMODCHART
 				luaModchart = null;
-				#end
 			}
 			#end
 		}
@@ -2922,9 +2916,7 @@ class PlayState extends MusicBeatState
 				if (luaModchart != null)
 				{
 					luaModchart.die();
-					#if FEATURE_LUAMODCHART
 					luaModchart = null;
-					#end
 				}
 				#end
 			}
@@ -2939,9 +2931,7 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 			{
 				luaModchart.die();
-				#if FEATURE_LUAMODCHART
 				luaModchart = null;
-				#end
 			}
 			#end
 		}
@@ -3887,9 +3877,7 @@ class PlayState extends MusicBeatState
 		if (luaModchart != null)
 		{
 			luaModchart.die();
-			#if FEATURE_LUAMODCHART
 			luaModchart = null;
-			#end
 		}
 		#end
 
@@ -4009,9 +3997,7 @@ class PlayState extends MusicBeatState
 					if (luaModchart != null)
 					{
 						luaModchart.die();
-						#if FEATURE_LUAMODCHART
 						luaModchart = null;
-						#end
 					}
 					#end
 
